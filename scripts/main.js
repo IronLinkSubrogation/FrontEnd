@@ -1,6 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   // ==============================
-  // Diary Page Logic
+  // Dashboard Data Fetch Logic
+  // ==============================
+  if (document.title === "Dashboard") {
+    const listItems = document.querySelectorAll("ul li");
+    fetch("https://api.mockironlink.com/summary") // Replace with real endpoint
+      .then((res) => res.json())
+      .then((data) => {
+        listItems[0].innerHTML = `Total Cases: <strong>${data.totalCases}</strong>`;
+        listItems[1].innerHTML = `Pending Follow-ups: <strong>${data.pendingFollowups}</strong>`;
+        listItems[2].innerHTML = `Recovered Amounts: <strong>$${data.recovered}</strong>`;
+      })
+      .catch(() => {
+        console.warn("Failed to fetch dashboard data.");
+      });
+  }
+
+  // ==============================
+  // Diary Logic
   // ==============================
   const diaryForm = document.querySelector("form textarea#entry")
     ? document.querySelector("form")
@@ -26,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==============================
-  // Notes Page Logic
+  // Notes Logic
   // ==============================
   const notesForm = document.querySelector("form textarea#note-entry")
     ? document.querySelector("form")
@@ -46,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Note saved to audit trail.");
         notesEntry.value = "";
 
-        // Inject newly saved note into the audit list
         const auditSection = document.querySelector("ul");
         if (auditSection) {
           const newItem = document.createElement("li");
@@ -58,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Render stored notes on page load
     const auditSection = document.querySelector("ul");
     if (auditSection) {
       const auditTrail = JSON.parse(localStorage.getItem("auditTrail")) || [];
