@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notes & Audit Trail</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <object type="text/html" data="../components/header.html" width="100%"></object>
+  <main style="padding: 2rem;">
+    <h2>Case Notes</h2>
+    <section style="margin-top: 1rem;">
+      <form>
+        <label for="note-entry" style="display: block; margin-bottom: 0.5rem;">Add New Note:</label>
+        <textarea id="note-entry" name="note-entry" rows="5" cols="60" placeholder="Type your note here..."></textarea>
+        <br />
+        <button type="submit" style="margin-top: 1rem;">Save Note</button>
+      </form>
+    </section>
+
+    <section style="margin-top: 2rem;">
+      <h3>Audit Trail</h3>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li><strong>07/22/2025:</strong> "Case flagged for manual review."</li>
+        <li><strong>07/20/2025:</strong> "Follow-up deadline updated."</li>
+        <li><strong>07/19/2025:</strong> "Initial note created."</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
