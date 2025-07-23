@@ -1,6 +1,7 @@
 {
   "name": "ironlink-crm-frontend",
   "version": "1.0.0",
+  "description": "IronLink CRM static frontend",
   "scripts": {
     "build": "echo \"No build step required\"",
     "start": "echo \"Static site deployment\""
