@@ -22,6 +22,7 @@ header nav {
   display: flex;
   justify-content: center;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 header nav a {
@@ -81,4 +82,27 @@ ul li {
   padding: 0.75rem;
   margin-bottom: 0.5rem;
   border-left: 4px solid #0078D4;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  header nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  main {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  form textarea {
+    font-size: 0.95rem;
+  }
+
+  form button {
+    width: 100%;
+    text-align: center;
+  }
 }
