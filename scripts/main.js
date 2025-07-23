@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==============================
   if (document.title === "Dashboard") {
     const listItems = document.querySelectorAll("ul li");
-    fetch("https://api.mockironlink.com/summary") // Replace with real endpoint
+    fetch("../mock/summary.json")
       .then((res) => res.json())
       .then((data) => {
         listItems[0].innerHTML = `Total Cases: <strong>${data.totalCases}</strong>`;
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("Please enter a note before submitting.");
       }
-    });
+    }
   }
 
   // ==============================
