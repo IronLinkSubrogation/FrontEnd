@@ -1,41 +1,38 @@
+import { useEffect, useState } from 'react';
 import SummaryBar from '../components/SummaryBar';
 import Card from '../components/Card';
 import StatusBadge from '../components/StatusBadge';
 import Button from '../components/Button';
 
-const followUps = [
-  {
-    caseId: 'IRN-10482',
-    title: 'Medical Claim Subrogation',
-    status: 'due',
-    date: '2025-07-25',
-    assignee: 'J. Baker',
-  },
-  {
-    caseId: 'IRN-20493',
-    title: 'Auto Collision Recovery',
-    status: 'missed',
-    date: '2025-07-21',
-    assignee: 'D. Maxwell',
-  },
-  {
-    caseId: 'IRN-30833',
-    title: 'Property Damage Dispute',
-    status: 'completed',
-    date: '2025-07-15',
-    assignee: 'A. Silva',
-  },
-];
-
 export default function Dashboard() {
+  const [followUps, setFollowUps] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [previewNote, setPreviewNote] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/followups')
+      .then(res => res.json())
+      .then(data => {
+        setFollowUps(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const fetchCaseNote = async (caseId) => {
+    const res = await fetch(`/api/cases/${caseId}/notes`);
+    const data = await res.json();
+    setPreviewNote(data[0]); // inject the latest note
+  };
+
+  if (loading) return <div className="p-8 text-gray-500">Loading dashboard...</div>;
+
   return (
     <div className="bg-neutral min-h-screen px-8 py-6">
       <h1 className="text-3xl font-bold text-foreground mb-6">🧭 Case Dashboard</h1>
 
-      {/* Summary Status Bar */}
       <SummaryBar data={followUps} />
 
-      {/* Case Card Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {followUps.map(({ caseId, title, status, date, assignee }) => (
           <Card key={caseId}>
@@ -48,14 +45,27 @@ export default function Dashboard() {
               <p><span className="font-medium">Assigned to:</span> {assignee}</p>
               <p><span className="font-medium">Follow-up:</span> {date}</p>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-between items-center">
               <Button variant={status === 'missed' ? 'danger' : 'primary'}>
                 View Case
               </Button>
+              <button
+                onClick={() => fetchCaseNote(caseId)}
+                className="text-xs text-blue-600 underline"
+              >
+                Preview Note
+              </button>
             </div>
           </Card>
         ))}
       </div>
+
+      {previewNote && (
+        <div className="mt-8 p-4 bg-white shadow rounded border border-gray-200">
+          <h2 className="text-lg font-semibold mb-2 text-foreground">📌 Latest Case Note</h2>
+          <p className="text-sm text-gray-700 whitespace-pre-wrap">{previewNote.content}</p>
+        </div>
+      )}
     </div>
   );
 }
