@@ -1,3 +1,4 @@
+import SummaryBar from '../components/SummaryBar';
 import Card from '../components/Card';
 import StatusBadge from '../components/StatusBadge';
 import Button from '../components/Button';
@@ -31,6 +32,10 @@ export default function Dashboard() {
     <div className="bg-neutral min-h-screen px-8 py-6">
       <h1 className="text-3xl font-bold text-foreground mb-6">🧭 Case Dashboard</h1>
 
+      {/* Summary Status Bar */}
+      <SummaryBar data={followUps} />
+
+      {/* Case Card Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {followUps.map(({ caseId, title, status, date, assignee }) => (
           <Card key={caseId}>
