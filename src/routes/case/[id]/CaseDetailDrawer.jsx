@@ -5,6 +5,7 @@ import DiaryTimeline from '../../../components/dashboard/DiaryTimeline';
 export default function CaseDetailDrawer() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
