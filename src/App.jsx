@@ -7,8 +7,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/case/:id" element={<CasePage />} />
-        {/* Add additional routes below */}
-        {/* Example: <Route path="/" element={<Dashboard />} /> */}
+        {/* Future: <Route path="/" element={<Dashboard />} /> */}
       </Routes>
     </BrowserRouter>
   )
