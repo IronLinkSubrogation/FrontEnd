@@ -11,11 +11,10 @@ export default function CaseDetailDrawer() {
 
   useEffect(() => {
     if (!id) return;
-
     setLoading(true);
     fetch(`/api/cases/${id}/detail`)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setDetails(data);
         setLoading(false);
       })
